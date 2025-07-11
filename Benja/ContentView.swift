@@ -6,16 +6,35 @@
 //
 
 import SwiftUI
+import WebKit
 
 struct ContentView: View {
+    @State var viewModel: ContentViewModel = .init()
+
     var body: some View {
         VStack {
+
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundStyle(.tint)
-            Text("Hello, world!")
+            Text(viewModel.text)
         }
         .padding()
+        .task {
+            await viewModel.makeRequest()
+        }
+    }
+}
+
+@Observable
+final class ContentViewModel {
+    var text: String = ""
+
+    func makeRequest() async {
+        let llm: LanguageModel = HuggingFaceLLM()
+        try? await llm.prepare()
+
+        print(try! await llm.reply(to: "Hey, how are you?"))
     }
 }
 
