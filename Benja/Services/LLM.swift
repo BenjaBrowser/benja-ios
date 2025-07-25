@@ -5,6 +5,7 @@
 //  Created by Fernando Martín Ortiz on 20/6/25.
 //
 
+import Foundation
 import LLM
 
 protocol LanguageModel {
@@ -18,7 +19,7 @@ final class HuggingFaceLLM: LanguageModel {
     func prepare() async throws {
         // This will download a new Huggingface model.
         let systemPrompt = "You are a sentient AI with emotions."
-        llm = try await LLM(from: HuggingFaceModel("unsloth/Qwen3-0.6B-GGUF", .Q4_K_M, template: .chatML(systemPrompt)))!
+        llm = LLM(from: Bundle.main.url(forResource: "qwen", withExtension: "gguf")!, template: .chatML(systemPrompt))
     }
 
     func reply(to prompt: String) async throws -> String {

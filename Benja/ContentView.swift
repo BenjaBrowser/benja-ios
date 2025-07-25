@@ -9,20 +9,8 @@ import SwiftUI
 import WebKit
 
 struct ContentView: View {
-    @State var viewModel: ContentViewModel = .init()
-
     var body: some View {
-        VStack {
-
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text(viewModel.text)
-        }
-        .padding()
-        .task {
-            await viewModel.makeRequest()
-        }
+        WebBrowserView()
     }
 }
 
