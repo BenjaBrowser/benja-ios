@@ -1,122 +1,137 @@
-# Benja – Product Requirements Document (PRD)
+# Product Requirements Document (PRD)
 
-## Overview
+## Product Name
+**Benja — The Web Browser for Those Who Read**
 
-**Benja** is a mobile web browser for iOS that integrates on-device AI capabilities to enhance web browsing while ensuring complete user privacy. Unlike typical browsers, Benja uses locally-running large language models (LLMs) to allow users to interact with websites via natural language – without sending any data to remote servers.
+## Vision Statement
+Benja is a mobile web browser that transforms how people read on the internet. It’s designed for thoughtful, focused readers who consume articles, newsletters, and short books on the go. In a world cluttered with distractions and clickbait, Benja offers a calm, purposeful experience tailored to knowledge seekers.
 
----
+## Problem Statement
+Current mobile browsers are optimized for general web consumption — fast searches, social media, and e-commerce. They fail readers in several key ways:
+- They don’t remember where you left off in long articles.
+- They offer no built-in “reading mode” for clutter-free content.
+- There is no audio experience that feels natural for articles.
+- Users can’t easily summarize or organize what they read.
+- Browsers don’t support content curation across sources (e.g., creating your own daily “newspaper”).
 
-## Goals
+## Target Audience
+- Knowledge workers and students who read news and essays daily.
+- Busy professionals who want to consume content while commuting.
+- Neurodivergent users who prefer structured, distraction-free reading experiences.
+- People seeking alternatives to algorithmic news feeds and infinite scroll apps.
 
-- Deliver a fast, modern, privacy-respecting browser experience.
-- Allow users to ask questions or give commands related to the current web page using natural language.
-- Keep all AI processing on-device, with no network-dependent inference.
-- Offer a clean, distraction-free UI optimized for mobile.
-
----
-
-## Target Platform
-
-- iOS 16+
-- iPhone (first), iPad (later)
-- Native technologies: Swift, SwiftUI, WebKit, CoreML / local LLMs
+## Value Proposition
+Benja helps readers **consume, organize, and retain** web-based content in a way that’s personalized, clutter-free, and optionally voice-enabled — all while preserving user privacy and working offline when needed.
 
 ---
 
 ## Core Features
 
-### 1. **Web Browsing (Core)**
-- WebKit-based renderer.
-- Tabless single-page or multi-tab navigation.
-- Address bar with search/autocomplete.
-- Bookmarks and browsing history (optional in MVP).
+### 1. Smart Bookmarks
+- Save any page with a **scroll position** tracker.
+- Resume articles exactly where you left off.
+- Add optional tags or notes for future reference.
 
-### 2. **On-Device AI Assistant**
-- Natural language interface to ask questions like:
-  - "What is this page about?"
-  - "Summarize the key points."
-  - "Extract all the links."
-  - "What does this table mean?"
-- Local LLM (e.g., Mistral, LLaMA via CoreML or GGUF-based inference).
+### 2. Read Mode
+- Clean, ad-free reading layout for articles and essays.
+- Toggle between light and dark reading modes.
+- Automatically detect and extract article content.
 
-### 3. **Privacy Mode by Default**
-- No telemetry or background trackers.
-- No cloud-based AI inference.
-- Optional "Incognito Mode" disables history and cookies.
-- Option to auto-clear data on exit.
+### 3. Voiceover & Audio Mode
+- Text-to-speech for any saved article.
+- Control playback speed, pause, and resume.
+- Optional background playback (for walking or commuting).
 
-### 4. **Contextual Page Actions**
-- AI suggests contextual actions like:
-  - Translate
-  - Extract contact info
-  - Generate a to-do list from a blog post
-  - Reformat content for readability
+### 4. Instant Summaries
+- One-tap AI-generated summary of the current page.
+- Listen to the summary or read it as a paragraph or bullet list.
+- Option to “ask follow-up questions” about the content (via local LLM).
 
-### 5. **Minimal UI Design**
-- Focus on content-first experience.
-- Hide navigation chrome when scrolling.
-- AI assistant accessible via a floating action button or swipe gesture.
+### 5. Reading Dashboards
+- Create boards like “Morning Reads”, “Tech News”, or “Weekend Essays”.
+- Add pages manually or automate via RSS or curated lists.
+- Each board is a curated reading experience.
+
+### 6. Offline Reading
+- Preload saved pages with clean article view.
+- Full voice and summary features available offline.
+- Ideal for flights, subways, or limited connectivity.
 
 ---
 
-## Non-Goals (for MVP)
+## Secondary Features
 
-- No extension support
-- No multi-account or syncing across devices
-- No third-party search engine deals or ads
+- Reader history with resume points and time-spent tracking.
+- Highlight and save quotes from articles.
+- Search across saved articles and summaries.
+- Native iOS and iPadOS interface with multitasking support.
+- Privacy-first: on-device LLM summaries, no ad tracking or behavioral profiling.
 
 ---
 
-## Future Features (Post-MVP)
+## Non-Goals
 
-- iPadOS support with split-screen multitasking.
-- AI memory for summarizing past visits.
-- Per-site settings and permissions (cookies, JS, etc.).
-- Offline reading mode with AI summaries.
-- Voice interface for AI interaction.
+- Competing with general-purpose AI assistants or search engines.
+- Supporting all web browsing use cases (e.g., shopping, social media).
+- Heavy personalization based on past behavior (no tracking-based recommendations).
 
 ---
 
 ## Success Metrics
 
-- Time to first interaction with AI under 3s.
-- AI latency under 1s (after model load).
-- Zero user data sent to third-party servers.
-- Positive App Store ratings on usability and privacy.
+### Product Usage
+- % of users using Smart Bookmarks daily
+- Number of articles resumed from scroll position
+- Number of summaries generated per week
+- Minutes spent in Voiceover mode
+
+### Retention
+- 7-day and 30-day active user retention
+- % of users creating custom dashboards
+
+### Satisfaction
+- In-app rating for Read Mode and Voiceover experience
+- Net Promoter Score (NPS) from reader-focused users
 
 ---
 
-## Risks & Challenges
+## Technical Considerations
 
-- On-device model performance vs. battery/latency.
-- Model size and app bundle constraints.
-- Ensuring AI relevance with limited context (e.g., page length/token limits).
-- App Store review approval (due to custom browser engine policies or LLM usage).
-
----
-
-## Team
-
-- **Product/Engineering Lead**: You (Fernando)
-- **AI/ML Consultant**: TBD
-- **iOS Engineer(s)**: Initially solo; can scale
-- **Design**: Minimalist UI, possibly hire freelance
+- Built on `WKWebView` for page rendering
+- Use of local CoreML/LLM model for on-device summaries
+- iCloud or local CoreData-based storage for offline access
+- Swift + SwiftUI for modern, performant UI
+- Accessibility compliance for VoiceOver, font scaling, etc.
 
 ---
 
-## Timeline (Rough Draft)
+## Timeline (Phase 1: MVP)
 
-| Phase          | Milestone                                 | Target Date |
-|----------------|-------------------------------------------|-------------|
-| Planning       | PRD, architecture, UI wireframes           | July 2025   |
-| MVP Build      | Core browser + local AI integration        | Aug–Sep 2025|
-| Alpha Testing  | Internal builds, performance tuning        | October 2025|
-| Beta Release   | TestFlight release                         | November 2025|
-| App Store Launch | v1.0 release                           | December 2025|
+| Feature | Status |
+|--------|--------|
+| Read Mode | ✅ |
+| Smart Bookmarks | ✅ |
+| Voiceover (TTS) | 🟡 (in progress) |
+| Instant Summaries | 🔲 |
+| Dashboards | 🔲 |
+| Offline Reading | 🔲 |
 
 ---
 
-## Notes
+## Open Questions
 
-- AI component may be integrated using `llm.swift`, `mlc-llm`, or `ggml` models compiled to CoreML.
-- Consider bundling a small quantized model and allowing advanced users to load custom models.
+- Should Benja support account sync or be purely local and private?
+- What voice should be used for TTS: system default or branded?
+- Should we add integrations with services like Instapaper or Pocket?
+
+---
+
+## Appendix
+
+**Name Origin**  
+"Benja" comes from the idea of a quiet, wise helper — possibly an owl — that aids your reading. The name evokes simplicity and trust.
+
+**Competitor Analysis**
+- Safari Reader Mode: good UX, but lacks memory and voice support.
+- Pocket: content saver, not a full browser.
+- Matter: reading-focused, but subscription-based and not privacy-first.
